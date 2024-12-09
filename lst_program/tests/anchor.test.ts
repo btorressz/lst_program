@@ -1,6 +1,6 @@
 // No imports needed: web3, anchor, pg and more are globally available
-//Test file is not complete. 
-describe("LST Tests", () => {
+//NOTE:Tests file is not fully complete 
+describe("LST Program Test", () => {
   it("initialize", async () => {
     // Generate a new keypair for the pool state account
     const poolStateKp = new web3.Keypair();
@@ -9,11 +9,11 @@ describe("LST Tests", () => {
     const admin = pg.wallet.publicKey;
 
     // Fee basis points (example: 100 basis points = 1%)
-    const feeBasisPoints = new BN(100);
+    const feeBasisPoints = 100; // Use a regular number for u16
 
     // Send the initialize transaction
     const txHash = await pg.program.methods
-      .initialize(admin, feeBasisPoints)
+      .initialize(admin, feeBasisPoints) // Pass feeBasisPoints as a number
       .accounts({
         poolState: poolStateKp.publicKey,
         admin: admin,
@@ -46,7 +46,7 @@ describe("LST Tests", () => {
     assert.strictEqual(poolState.totalStaked.toString(), "0");
     assert.strictEqual(poolState.totalMinted.toString(), "0");
     assert.strictEqual(poolState.rewardsCompounded.toString(), "0");
-    assert.strictEqual(poolState.feeBasisPoints.toString(), feeBasisPoints.toString());
+    assert.strictEqual(poolState.feeBasisPoints, feeBasisPoints);
     assert.strictEqual(poolState.paused, false);
   });
 });
