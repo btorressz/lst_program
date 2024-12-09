@@ -3,7 +3,7 @@ I orginally made a LST project for a client using Solana native, however I wante
 
 # LST Program: Liquid Staking Token(lst_program)
 
-The **LST Program** is a Solana Program (smart contract) designed to facilitate liquid staking on the Solana blockchain. Users can stake their SOL tokens and receive **Liquidity Staking Tokens (LST)** as proof of their stake. LST tokens are fungible and can be utilized across the Solana ecosystem while users continue earning staking rewards.
+This **LST Program** is a Solana Program (smart contract) designed to facilitate liquid staking on the Solana blockchain. Users can stake their SOL tokens and receive **Liquidity Staking Tokens (LST)** as proof of their stake. LST tokens are fungible and can be utilized across the Solana ecosystem while users continue earning staking rewards.
 
 ---
 
