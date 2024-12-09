@@ -1,6 +1,8 @@
 # lst_program
 I orginally made a LST project for a client using Solana native, however I wanted to try it out in Anchor as well. (https://github.com/btorressz/LST)
 
+Dev net deployment: (https://explorer.solana.com/address/64pMzn8nuvgJ9ja7gh2hV6wpg5Jt7xoReLxjVJkcwY5k?cluster=devnet)
+
 # LST Program: Liquid Staking Token(lst_program)
 
 This **LST Program** is a Solana Program (smart contract) designed to facilitate liquid staking on the Solana blockchain. Users can stake their SOL tokens and receive **Liquidity Staking Tokens (LST)** as proof of their stake. LST tokens are fungible and can be utilized across the Solana ecosystem while users continue earning staking rewards.
