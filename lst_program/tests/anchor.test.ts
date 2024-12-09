@@ -1,34 +1,52 @@
 // No imports needed: web3, anchor, pg and more are globally available
-
-describe("Test", () => {
+//Test file is not complete. 
+describe("LST Tests", () => {
   it("initialize", async () => {
-    // Generate keypair for the new account
-    const newAccountKp = new web3.Keypair();
+    // Generate a new keypair for the pool state account
+    const poolStateKp = new web3.Keypair();
 
-    // Send transaction
-    const data = new BN(42);
+    // Admin's public key (use the wallet's public key for simplicity)
+    const admin = pg.wallet.publicKey;
+
+    // Fee basis points (example: 100 basis points = 1%)
+    const feeBasisPoints = new BN(100);
+
+    // Send the initialize transaction
     const txHash = await pg.program.methods
-      .initialize(data)
+      .initialize(admin, feeBasisPoints)
       .accounts({
-        newAccount: newAccountKp.publicKey,
-        signer: pg.wallet.publicKey,
+        poolState: poolStateKp.publicKey,
+        admin: admin,
+        adminFeeAccount: pg.wallet.publicKey, // Use the same wallet for the fee account in this test
         systemProgram: web3.SystemProgram.programId,
       })
-      .signers([newAccountKp])
+      .signers([poolStateKp])
       .rpc();
     console.log(`Use 'solana confirm -v ${txHash}' to see the logs`);
 
-    // Confirm transaction
+    // Confirm the transaction
     await pg.connection.confirmTransaction(txHash);
 
-    // Fetch the created account
-    const newAccount = await pg.program.account.newAccount.fetch(
-      newAccountKp.publicKey
+    // Fetch the created pool state account
+    const poolState = await pg.program.account.poolState.fetch(
+      poolStateKp.publicKey
     );
 
-    console.log("On-chain data is:", newAccount.data.toString());
+    console.log("Pool state initialized:", {
+      admin: poolState.admin.toString(),
+      totalStaked: poolState.totalStaked.toString(),
+      totalMinted: poolState.totalMinted.toString(),
+      rewardsCompounded: poolState.rewardsCompounded.toString(),
+      feeBasisPoints: poolState.feeBasisPoints.toString(),
+      paused: poolState.paused,
+    });
 
-    // Check whether the data on-chain is equal to local 'data'
-    assert(data.eq(newAccount.data));
+    // Assertions to ensure the pool state matches the expected values
+    assert.strictEqual(poolState.admin.toString(), admin.toString());
+    assert.strictEqual(poolState.totalStaked.toString(), "0");
+    assert.strictEqual(poolState.totalMinted.toString(), "0");
+    assert.strictEqual(poolState.rewardsCompounded.toString(), "0");
+    assert.strictEqual(poolState.feeBasisPoints.toString(), feeBasisPoints.toString());
+    assert.strictEqual(poolState.paused, false);
   });
 });
