@@ -83,3 +83,45 @@ Provides real-time information about the pool’s state:
 - Current fee rate.
 
 ---
+
+## Events
+
+The program uses events to provide real-time updates for key actions:
+
+| **Event**            | **Description**                                         |
+|-----------------------|---------------------------------------------------------|
+| `StakeEvent`         | Logs details when a user stakes SOL.                    |
+| `WithdrawEvent`      | Logs details when a user withdraws SOL.                 |
+| `CompoundRewardsEvent` | Logs the amount of rewards compounded.                 |
+| `RedelegateEvent`    | Logs when a redelegation occurs.                        |
+| `AdminUpdateEvent`   | Logs when the admin is updated.                         |
+| `PauseEvent`         | Logs when the program is paused or resumed.             |
+
+---
+
+## Accounts
+
+### **PoolState**
+Tracks the state of the staking pool.
+
+| **Field**            | **Type**     | **Description**                            |
+|-----------------------|--------------|--------------------------------------------|
+| `admin`              | `Pubkey`     | Public key of the pool admin.              |
+| `total_staked`       | `u64`        | Total amount of staked SOL.                |
+| `total_minted`       | `u64`        | Total LST tokens minted.                   |
+| `rewards_compounded` | `u64`        | Total rewards added to the pool.           |
+| `fee_basis_points`   | `u16`        | Fee percentage in basis points (1% = 100). |
+| `paused`             | `bool`       | Whether the program is currently paused.   |
+
+---
+
+## Error Codes
+
+| **Error Code** | **Description**                  |
+|-----------------|----------------------------------|
+| `Paused`       | The program is currently paused. |
+
+---
+
+## License
+This project is under the **MIT LICENSE**
