@@ -29,7 +29,7 @@ pub mod lst_program {
                pool_state.total_staked += net_amount;
                pool_state.total_minted += net_amount;
 
-           // Create CpiContext for minting tokens
+     // Create CpiContext for minting tokens
     let cpi_accounts = MintTo {
         mint: ctx.accounts.mint.to_account_info(),
         to: ctx.accounts.user_token_account.to_account_info(),
