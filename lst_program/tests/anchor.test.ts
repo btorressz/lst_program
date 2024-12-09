@@ -1,5 +1,4 @@
 // No imports needed: web3, anchor, pg and more are globally available
-//NOTE:Tests file is not fully complete 
 describe("LST Program Test", () => {
   it("initialize", async () => {
     // Generate a new keypair for the pool state account
